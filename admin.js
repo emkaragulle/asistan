@@ -3,12 +3,12 @@ import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/
 import { getFirestore, collection, query, where, getDocs, doc, getDoc, updateDoc, runTransaction } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyArUctUJhte-hxPeqCQIXJR9f5x-3W18F0",
+    apiKey: "",
     authDomain: "leitner-calisma-asistani-bc2b0.firebaseapp.com",
     projectId: "leitner-calisma-asistani-bc2b0",
     storageBucket: "leitner-calisma-asistani-bc2b0.appspot.com",
     messagingSenderId: "690172130029",
-    appId: "1:690172130029:web:78d94652bf097128d392e4"
+    appId: ""
 };
 
 const app = initializeApp(firebaseConfig);
