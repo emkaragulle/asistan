@@ -7,12 +7,12 @@ import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signO
 import { getFirestore, doc, setDoc, getDoc, onSnapshot, updateDoc, deleteField, collection, addDoc, query, where, orderBy, deleteDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyArUctUJhte-hxPeqCQIXJR9f5x-3W18F0",
+    apiKey: "",
     authDomain: "leitner-calisma-asistani-bc2b0.firebaseapp.com",
     projectId: "leitner-calisma-asistani-bc2b0",
     storageBucket: "leitner-calisma-asistani-bc2b0.appspot.com",
     messagingSenderId: "690172130029",
-    appId: "1:690172130029:web:78d94652bf097128d392e4"
+    appId: ""
 };
 
 // Firebase servislerini başlat
