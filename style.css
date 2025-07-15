@@ -1,0 +1,1103 @@
+body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #334155; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; font-weight: 600; padding: 0.75rem 1.5rem; border-radius: 0.5rem; transition: all 0.2s ease; cursor: pointer; border: 1px solid transparent; box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
+.btn-primary { background-color: #4f46e5; color: white; border-color: #4f46e5; }
+.btn-primary:hover:not(:disabled) { background-color: #4338ca; }
+.btn-secondary { background-color: white; color: #334155; border-color: #cbd5e1; }
+.btn-secondary:hover:not(:disabled) { background-color: #f8fafc; border-color: #94a3b8; }
+.btn-danger { background-color: #e11d48; color: white; border-color: #e11d48; }
+.btn-danger:hover:not(:disabled) { background-color: #be123c; }
+.btn-success { background-color: #16a34a; color: white; border-color: #16a34a; }
+.btn-success:hover:not(:disabled) { background-color: #15803d; }
+.btn-icon { padding: 0.5rem; background: transparent; border: none; box-shadow: none;}
+.btn-icon:hover { background-color: #f1f5f9; }
+
+.form-input, .form-select, .form-textarea { width: 100%; padding: 0.625rem 0.875rem; border: 1px solid #cbd5e1; border-radius: 0.5rem; background-color: white; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: #4f46e5; box-shadow: 0 0 0 3px #c7d2fe; }
+
+.modal-container.hidden .modal-backdrop { opacity: 0; pointer-events: none; }
+.modal-container.hidden .modal-content { opacity: 0; transform: translate(-50%, -45%) scale(0.95); pointer-events: none; }
+.modal-backdrop { position: fixed; inset: 0; background-color: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 40; transition: opacity 0.3s ease; }
+
+.modal-content {
+    position: fixed;
+    top: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    width: 90%;
+    max-width: 500px;
+    z-index: 50;
+    opacity: 1;
+    transition: all 0.3s ease;
+    max-height: calc(100% - 1.5rem - 80px);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* EKLENDİ: Dikeyde taşan içeriği kaydırılabilir yap */
+}
+
+.sidebar-link.active { background-color: #eef2ff; color: #4338ca; font-weight: 600; }
+.project-link.active { background-color: #eef2ff; color: #4338ca; font-weight: 600; }
+
+.dashboard-card { background-color: white; border-radius: 1rem; border: 1px solid #e2e8f0; padding: 1.5rem; transition: all 0.2s ease; }
+.dashboard-card:hover { transform: translateY(-4px); box-shadow: 0 8px 25px -5px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); }
+
+.flip-card { perspective: 1000px; }
+.flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; }
+.flip-card.is-flipped .flip-card-inner { transform: rotateY(180deg); }
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* DEĞİŞTİRİLDİ: İçeriği üste hizala */
+    align-items: center;
+    padding: 2rem;
+    border-radius: 0.75rem;
+}
+.flip-card-back { transform: rotateY(180deg); }
+
+.collapsible-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-in-out; }
+.collapsible-content.open { max-height: 1000px; }
+.toggle-arrow.open { transform: rotate(180deg); }
+
+.accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-in-out; }
+.accordion-content.open { max-height: 2000px; } 
+.accordion-arrow.open { transform: rotate(180deg); }
+
+.badge-card { border: 2px solid #ddd; border-radius: 8px; padding: 15px; text-align: center; transition: all 0.3s ease; }
+.badge-card img { width: 80px; height: 80px; margin-bottom: 10px; }
+.badge-card.not-earned { background-color: #fafafa; }
+.badge-card.not-earned img { filter: grayscale(100%); opacity: 0.4; }
+.badge-card.not-earned h3 { color: #aaa; }
+.badge-card.not-earned p { font-size: 0.9em; color: #bbb; }
+.badge-card.earned { border-color: #ffd700; background-color: #fffbef; transform: scale(1.05); }
+.badge-card.earned h3 { color: #333; }
+.badge-card.earned p { font-size: 0.9em; color: #555; }
+
+#pomodoro-container {
+    background-color: #f8fafc; /* bg-slate-50 */
+    border: 1px solid #e2e8f0; /* border-slate-200 */
+    border-radius: 0.75rem;
+    padding: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: max-content;
+}
+#pomodoro-display {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    background-color: #f1f5f9;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.375rem;
+    font-family: monospace;
+}
+#pomodoro-container .btn-icon {
+    background-color: #eef2ff;
+    color: #4f46e5;
+    border-radius: 9999px;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#pomodoro-container .btn-icon:hover {
+     background-color: #c7d2fe;
+}
+#study-controls.on-break #study-correct-btn,
+#study-controls.on-break #study-incorrect-btn {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+.heatmap-container { display: grid; grid-template-rows: repeat(7, 1fr); grid-auto-flow: column; gap: 4px; }
+/* --- YUKARIDAKİ ESKİ KODU SİLİP, BUNU YAPIŞTIRIN --- */
+/* --- YUKARIDAKİ ESKİ KODU SİLİP, BUNU YAPIŞTIRIN --- */
+
+.hidden { display: none; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.fade-in { animation: fadeIn 0.5s ease-out forwards; }
+
+.swiper-button-next, .swiper-button-prev {
+    color: #4f46e5; width: 2.75rem; height: 2.75rem; background-color: white;
+    border-radius: 9999px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+    border: 1px solid #e2e8f0; transition: all 0.2s ease; top: 50%; transform: translateY(-50%);
+}
+.swiper-button-next:hover, .swiper-button-prev:hover { background-color: #f8fafc; color: #4338ca; }
+.swiper-button-next::after, .swiper-button-prev::after { font-size: 1rem; font-weight: 800; }
+.swiper-button-disabled { opacity: 0.3; cursor: not-allowed; }
+
+#methodology-modal-content h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #1e293b; }
+#methodology-modal-content h3 { font-size: 1.25rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.75rem; color: #334155; }
+#methodology-modal-content p { color: #475569; line-height: 1.6; margin-bottom: 1rem; }
+#methodology-modal-content strong { color: #4f46e5; font-weight: 600; }
+
+.station-card {
+    background-color: white;
+    border-radius: 0.75rem;
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+.station-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+}
+.station-header {
+    padding: 0.75rem 1rem;
+    color: white;
+    font-weight: 700;
+}
+.station-body {
+    padding: 1rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.station-description {
+    font-size: 0.875rem;
+    color: #64748b;
+    min-height: 2.5rem;
+}
+.station-counter {
+    font-size: 1.875rem;
+    font-weight: 800;
+    color: #1e293b;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+.station-counter:hover {
+    color: #4f46e5;
+}
+
+.project-card {
+    background-color: white;
+    border-radius: 0.75rem;
+    border: 1px solid #e2e8f0;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    border-color: #a5b4fc; /* indigo-300 */
+}
+
+.mastered-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.625rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 9999px;
+    background-color: #fef3c7; /* amber-100 */
+    color: #92400e; /* amber-800 */
+    flex-shrink: 0;
+}
+
+/* Seans Paneli Kartları için Modern Stiller */
+.recipe-card {
+    display: flex;
+    flex-direction: column;
+    transition: all 0.25s ease-in-out;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.07);
+    border-radius: 0.75rem; /* EKLENEN SATIR: Diğer kartlarla aynı yuvarlaklık */
+}
+.recipe-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px -5px rgba(0,0,0,0.1);
+    border-color: #c7d2fe;
+}
+.recipe-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-grow: 1;
+}
+.recipe-icon-wrapper {
+    flex-shrink: 0;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background-color: #eef2ff;
+}
+.recipe-icon-wrapper .recipe-icon {
+    font-size: 1.5rem;
+}
+.recipe-actions {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+.recipe-actions .form-select {
+    flex-grow: 1;
+}
+
+#mobile-bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 45; /* Tekrar 45 yapıldı */
+    height: 64px;
+    background-color: white;
+    border-top: 1px solid #e2e8f0;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+}
+.mobile-nav-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    color: #9ca3af; /* DAHA CİDDİ PASİF RENK: slate-400 */
+    padding: 0.5rem 0;
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
+    -webkit-tap-highlight-color: transparent;
+}
+.mobile-nav-link svg {
+    margin-bottom: 2px;
+}
+
+.mobile-nav-link.active {
+    color: #111827; /* DAHA CİDDİ AKTİF RENK: gray-900 */
+}
+
+
+.more-view-link {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 1rem;
+    font-weight: 500;
+    color: #334155;
+    transition: background-color 0.2s ease;
+    text-decoration: none;
+    border-bottom: 1px solid #f1f5f9;
+}
+.more-view-link:hover {
+    background-color: #f8fafc;
+}
+.more-view-link:last-child {
+    border-bottom: none;
+}
+.more-view-link .link-icon {
+    margin-right: 1rem;
+    color: #4f46e5;
+}
+
+@media (max-width: 767px) {
+    #main-content {
+        padding-bottom: 80px; 
+    }
+}
+
+#metronome-visualizer {
+    width: 24px;
+    height: 24px;
+    background-color: #e2e8f0;
+    border-radius: 50%;
+    transition: all 0.1s ease-out; 
+}
+#metronome-visualizer.beat {
+    background-color: #4f46e5;
+    transform: scale(1.2);
+    box-shadow: 0 0 15px rgba(79, 70, 229, 0.5);
+}
+
+/* --- YUKARIDAKİ ESKİ KODU SİLİP, BUNU YAPIŞTIRIN --- */
+
+.calendar-header {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+    color: #64748b;
+    padding-bottom: 8px;
+}
+
+.bg-indigo-400 .day-number, .bg-indigo-600 .day-number {
+    color: #e0e7ff;
+}
+
+#onboarding-step-content {
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+.onboarding-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #cbd5e1;
+    transition: background-color 0.3s ease;
+}
+.onboarding-dot.active {
+    background-color: #4f46e5;
+}
+
+.grid-auto-fit-cards {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.grid-auto-fit-sessions {
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+}
+
+/* =============================================== */
+/* KONTROLLÜ KOYU MOD STİLLERİ                     */
+/* =============================================== */
+/* Bu stiller sadece <html> etiketinde "dark" sınıfı
+   olduğunda devreye girecektir. */
+
+html.dark body {
+    background-color: #111827; /* gray-900 */
+    color: #d1d5db; /* gray-300 */
+}
+
+/* Ana panel ve diğer beyaz arkaplanlar */
+html.dark .bg-white {
+    background-color: #1f2937; /* slate-800 */
+    border-color: #374151; /* slate-700 */
+}
+
+/* Metin Renkleri */
+html.dark .text-slate-900, html.dark .text-slate-800 { color: #f9fafb; } /* gray-50 */
+html.dark .text-slate-700 { color: #d1d5db; } /* gray-300 */
+html.dark .text-slate-600, html.dark .text-slate-500 { color: #9ca3af; } /* gray-400 */
+html.dark .text-slate-400 { color: #6b7280; } /* gray-500 */
+
+/* Kenar Çubuğu */
+html.dark #sidebar {
+    background-color: #1f2937; /* slate-800 */
+    border-color: #374151; /* slate-700 */
+}
+html.dark .sidebar-link {
+    color: #d1d5db; /* gray-300 */
+}
+html.dark .sidebar-link:hover {
+    background-color: #374151; /* slate-700 */
+}
+html.dark .sidebar-link.active {
+    background-color: #3730a3; /* indigo-800 */
+    color: white;
+}
+html.dark .project-link:hover {
+    background-color: #374151; /* slate-700 */
+}
+html.dark .project-link.active {
+    background-color: #3730a3; /* indigo-800 */
+    color: white;
+}
+html.dark .border-slate-200 { border-color: #374151; }
+
+/* Butonlar */
+html.dark .btn-secondary {
+    background-color: #374151; /* slate-700 */
+    border-color: #4b5563; /* slate-600 */
+    color: #d1d5db; /* gray-300 */
+}
+html.dark .btn-secondary:hover:not(:disabled) {
+    background-color: #4b5563; /* slate-600 */
+}
+
+/* Form Elemanları */
+html.dark .form-input, html.dark .form-select, html.dark .form-textarea {
+    background-color: #374151; /* slate-700 */
+    border-color: #4b5563; /* slate-600 */
+    color: #f9fafb; /* gray-50 */
+}
+
+/* Modal İçerikleri */
+html.dark .modal-content {
+    background-color: #1f2937; /* slate-800 */
+}
+html.dark .bg-slate-50 {
+    background-color: #111827; /* gray-900 */
+}
+
+/* Mobil Alt Menü */
+html.dark #mobile-bottom-nav {
+    background-color: #1f2937; /* slate-800 */
+    border-top-color: #374151; /* slate-700 */
+}
+html.dark .mobile-nav-link {
+    color: #9ca3af; /* slate-400 */
+}
+html.dark .mobile-nav-link.active {
+    color: #a5b4fc; /* indigo-300 */
+}
+html.dark .mobile-nav-action-btn {
+    border-color: #1f2937; /* slate-800 */
+}
+
+/* =============================================== */
+/* ESER KARTLARI KOYU MOD DÜZELTMESİ              */
+/* =============================================== */
+
+/* .project-card sınıfına sahip ana kart konteyneri */
+html.dark .project-card {
+    background-color: #1f2937; /* Arkaplan: Koyu Gri (slate-800) */
+    border-color: #374151;     /* Kenarlık: Daha Koyu Gri (slate-700) */
+}
+
+/* Kart içindeki başlık (Eser Adı) */
+html.dark .project-card h4 {
+    color: #f9fafb; /* Yazı Rengi: Beyaza Yakın (gray-50) */
+}
+
+/* Kart içindeki diğer paragraflar (Kart sayısı, Son Pratik vb.) */
+html.dark .project-card p {
+    color: #9ca3af; /* Yazı Rengi: Normal Gri (gray-400) */
+}
+
+/* Kart içindeki ilerleme çubuğunun (progress bar) arkaplanı */
+html.dark .project-card .bg-slate-200 {
+    background-color: #374151; /* Arkaplan: Koyu Gri (slate-700) */
+}
+
+/* =============================================== */
+/* KONTROLLÜ KOYU MOD STİLLERİ                     */
+/* =============================================== */
+
+/* ... bir önceki adımdaki tüm koyu mod kodları ... */
+
+/* ... en sondaki .project-card kurallarından sonra ... */
+
+/* =============================================== */
+/* AKORDİYON MENÜ HOVER DÜZELTMESİ (KOYU MOD)    */
+/* =============================================== */
+/* Proje detay sayfasındaki kutuların üzerine gelme efekti */
+
+html.dark .accordion-header:hover {
+    background-color: #374151; /* slate-700, yani arkaplandan bir ton daha açık */
+}
+
+/* ================================================== */
+/* USTALIK YOLCULUĞU KARTLARI KOYU MOD DÜZELTMESİ    */
+/* ================================================== */
+
+/* Ustalık Yolculuğu kartının ana gövdesi */
+html.dark .station-card {
+    background-color: #1f2937; /* slate-800 */
+    border-color: #374151; /* slate-700 */
+}
+
+/* Kart içindeki sayaç ve metinler için açık renkler */
+html.dark .station-counter {
+    color: #f9fafb; /* gray-50 */
+}
+html.dark .station-description {
+    color: #9ca3af; /* gray-400 */
+}
+html.dark .station-counter:hover {
+    color: #818cf8; /* indigo-400 */
+}
+
+/* Kartın içindeki "Bu Adımı Çalış" butonu için daha iyi kontrast */
+html.dark .station-card .btn-secondary {
+    background-color: #374151; /* slate-700 */
+    border-color: #4b5563; /* slate-600 */
+    color: #e5e7eb; /* gray-200 */
+}
+html.dark .station-card .btn-secondary:hover:not(:disabled) {
+    background-color: #4b5563; /* slate-600 */
+}
+
+/* --- Başlıklar İçin Tasarım Değişikliği --- */
+
+/* Renkli başlıkların arkaplanını şeffaf yapıp, altına bir çizgi ekliyoruz */
+html.dark .station-header {
+    background-color: transparent !important;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #374151; /* slate-700 */
+}
+
+/* Her bir renk sınıfı için artık arkaplanı değil, YAZIYI renklendiriyoruz */
+html.dark .station-header.bg-sky-500    { color: #7dd3fc !important; } /* sky-300 */
+html.dark .station-header.bg-emerald-500 { color: #6ee7b7 !important; } /* emerald-300 */
+html.dark .station-header.bg-orange-500  { color: #fdba74 !important; } /* orange-300 */
+html.dark .station-header.bg-pink-500    { color: #f9a8d4 !important; } /* pink-300 */
+html.dark .station-header.bg-rose-500    { color: #fda4af !important; } /* rose-300 */
+html.dark .station-header.bg-cyan-500    { color: #67e8f9 !important; } /* cyan-300 */
+html.dark .station-header.bg-slate-500   { color: #a3a3a3 !important; } /* neutral-400 */
+html.dark .station-header.bg-purple-500  { color: #c084fc !important; } /* purple-400 */
+
+/* ================================================== */
+/* SEANS PANELİ KARTLARI KOYU MOD DÜZELTMESİ         */
+/* ================================================== */
+
+/* Seans Paneli kartlarının ana gövdesi */
+html.dark .recipe-card {
+    background-color: #1f2937; /* slate-800 */
+    border-color: #374151; /* slate-700 */
+    box-shadow: none; /* Koyu temada gölgeyi sıfırlayalım */
+}
+
+/* Üzerine gelme efekti */
+html.dark .recipe-card:hover {
+    background-color: #374151; /* slate-700 */
+    border-color: #4b5563; /* slate-600 */
+}
+
+/* İkonu saran dairenin arkaplan rengi */
+html.dark .recipe-icon-wrapper {
+    background-color: #3730a3; /* indigo-800 */
+}
+
+/* Kart içindeki başlık ve açıklama metinlerinin renkleri */
+html.dark .recipe-card h4 {
+    color: #f9fafb; /* gray-50 */
+}
+
+html.dark .recipe-card p {
+    color: #9ca3af; /* gray-400 */
+}
+
+/* Kartın altındaki eylem bölümünün üst çizgisi */
+html.dark .recipe-actions {
+    border-top-color: #374151; /* slate-700 */
+}
+
+/* ================================================== */
+/* "YENİ ESER OLUŞTUR" MODALI KOYU MOD DÜZELTMESİ   */
+/* ================================================== */
+
+/* Modal içeriğinin ana panelleri */
+html.dark #create-blank-panel,
+html.dark #create-from-template-panel {
+    background-color: #1f2937; /* slate-800 */
+}
+
+/* Tab (Sekme) Butonları */
+html.dark #create-work-tabs-nav {
+    border-bottom-color: #374151; /* slate-700 */
+}
+
+html.dark #create-work-tabs-nav button {
+    color: #9ca3af; /* gray-400 */
+    border-color: transparent;
+}
+/* Aktif sekmenin rengi */
+html.dark #create-work-tabs-nav button.border-indigo-500 {
+    color: #a5b4fc; /* indigo-300 */
+    border-color: #a5b4fc; /* indigo-300 */
+}
+
+/* Sol taraftaki "Eser Bilgileri" ve "Kart Ekle" kutuları */
+html.dark #create-blank-panel .bg-slate-50 {
+    background-color: #374151; /* slate-700 */
+    border-color: #4b5563; /* slate-600 */
+}
+
+/* Sağ taraftaki "Eklenecek Kartlar" listesi */
+html.dark #new-work-card-list-container {
+    background-color: #1f2937; /* slate-800 */
+    border-color: #374151; /* slate-700 */
+}
+/* İçindeki "Henüz kart eklenmedi" yazısı */
+html.dark #new-work-card-list-container p {
+    color: #6b7280; /* gray-500 */
+}
+
+/* Listeye eklenen kartların arkaplanı */
+html.dark #new-work-card-list-container .bg-white {
+     background-color: #374151; /* slate-700 */
+     border-color: #4b5563; /* slate-600 */
+}
+
+/* Input alanlarındaki soluk (placeholder) yazı rengi */
+html.dark .form-input::placeholder {
+    color: #6b7280; /* gray-500 */
+}
+/* ================================================== */
+/* "HAZIR ŞABLON" PANELİ KOYU MOD DÜZELTMESİ        */
+/* ================================================== */
+
+/* Kategori seçim kutularının (Akordiyon) arkaplanı ve kenarlığı */
+html.dark #create-from-template-panel .bg-slate-50 {
+    background-color: #1f2937; /* slate-800 */
+    border-color: #374151; /* slate-700 */
+}
+
+/* Kategori başlıklarının (20.yy., Barok vb.) yazı rengi */
+html.dark #create-from-template-panel h4 {
+    color: #f9fafb; /* gray-50 */
+}
+
+/* Sağdaki aşağı ok ikonunun rengi */
+html.dark #create-from-template-panel [data-action="toggle-category"] {
+    color: #d1d5db; /* gray-300 */
+}
+
+/* Akordiyon açıldığında içindeki şablon kartları */
+html.dark #create-from-template-panel .bg-white {
+    background-color: #374151; /* slate-700 */
+    border-bottom-color: #4b5563 !important; /* slate-600 */
+}
+
+/* Akordiyon içindeki kartların metin renkleri */
+html.dark #create-from-template-panel .text-slate-800 {
+    color: #f9fafb; /* gray-50 */
+}
+
+html.dark #create-from-template-panel .text-slate-500 {
+    color: #9ca3af; /* gray-400 */
+}
+
+/* ================================================== */
+/* METODOLOJİ MODALI KOYU MOD DÜZELTMESİ            */
+/* ================================================== */
+
+/* Modal içindeki genel metin renkleri */
+html.dark #methodology-modal-content h2,
+html.dark #methodology-modal-content h3 {
+    color: #f9fafb; /* gray-50 */
+}
+html.dark #methodology-modal-content p,
+html.dark #methodology-modal-content li {
+    color: #d1d5db; /* gray-300 */
+}
+html.dark #methodology-modal-content strong {
+    color: #a5b4fc; /* indigo-300 */
+}
+
+/* Adım kutularının genel koyu tema stili */
+html.dark #methodology-modal-content .space-y-4 > div {
+    background-color: #1f2937; /* slate-800 */
+    border-color: #374151 !important; /* slate-700 */
+}
+
+/* Adım kutularının içindeki başlık ve metinler */
+html.dark #methodology-modal-content .space-y-4 h4 {
+    color: #f3f4f6; /* gray-100 */
+}
+html.dark #methodology-modal-content .space-y-4 p {
+    color: #9ca3af; /* gray-400 */
+}
+
+/* Renkli adım kutularının yazı renklerini ayarla */
+html.dark #methodology-modal-content .text-orange-800 { color: #fdba74 !important; }
+html.dark #methodology-modal-content .text-orange-700 { color: #fb923c !important; }
+html.dark #methodology-modal-content .text-cyan-800   { color: #67e8f9 !important; }
+html.dark #methodology-modal-content .text-cyan-700   { color: #22d3ee !important; }
+html.dark #methodology-modal-content .text-purple-800 { color: #c084fc !important; }
+html.dark #methodology-modal-content .text-purple-700 { color: #a855f7 !important; }
+
+/* En alttaki tavsiye kutusu */
+html.dark #methodology-modal-content .bg-indigo-50 {
+    background-color: #3730a3; /* indigo-800 */
+}
+html.dark #methodology-modal-content .bg-indigo-50 p {
+    color: #e0e7ff; /* indigo-200 */
+}
+
+/* ================================================== */
+/* İSTATİSTİK SAYFASI KOYU MOD DÜZELTMESİ           */
+/* ================================================== */
+
+/* "İstatistikler" sayfası genelindeki başlıklar */
+html.dark #statistics-container h3 {
+    color: #f9fafb; /* gray-50 */
+}
+
+/* Pratik Takvimi (Heatmap) */
+html.dark .calendar-header {
+    color: #9ca3af; /* gray-400 */
+}
+
+
+/* Grafiklerin etrafındaki ana kutular */
+html.dark #statistics-container .bg-white {
+    background-color: #1f2937; /* slate-800 */
+    border-color: #374151; /* slate-700 */
+}
+
+
+/* ================================================== */
+/* PRATİK TAKVİMİ - ORİJİNAL STİLLER                */
+/* ================================================== */
+
+/* Takvimin ana ızgara yapısı */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 eşit genişlikte kolon */
+    gap: 4px;
+}
+
+/* Takvimdeki günlerin başlıkları (Pzt, Sal...) */
+.calendar-header {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+    color: #64748b;
+    padding-bottom: 8px;
+}
+
+/* Her bir gün kutusunun stili */
+.calendar-day {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px; /* Kutuların yüksekliği */
+    border-radius: 6px;
+    padding: 6px;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+    border: 1px solid #f1f5f9; /* Açık temada hafif kenarlık */
+    background-color: #f8fafc; /* Açık temada boş gün rengi */
+}
+
+/* Gün kutusunun içindeki gün numarası (örn: 1, 2, 3) */
+.calendar-day .day-number {
+    font-weight: 500;
+    align-self: flex-start; /* Sol üste yasla */
+    color: #475569;
+}
+
+/* Gün kutusunun içindeki pratik sayısı/dakikası */
+.calendar-day .day-count {
+    font-weight: 700;
+    font-size: 1.125rem; /* Biraz daha büyük */
+}
+
+/* Koyu Mod için Takvim Düzeltmeleri */
+html.dark .calendar-day {
+    border-color: #374151; /* slate-700 */
+    background-color: #1f2937; /* slate-800 */
+}
+html.dark .calendar-day .day-number {
+    color: #9ca3af; /* gray-400 */
+}
+html.dark .calendar-header {
+    color: #9ca3af; /* gray-400 */
+}
+
+/* ================================================== */
+/* BAŞARIMLAR SAYFASI KOYU MOD DÜZELTMESİ           */
+/* ================================================== */
+
+/* "Ustalaşılan Eserler" listesindeki her bir eleman */
+html.dark #achievements-container .bg-green-50 {
+    background-color: #14532d; /* Koyu Yeşil (green-900) */
+    border-color: #166534;     /* Daha Koyu Yeşil (green-800) */
+}
+/* İçindeki metinlerin renkleri */
+html.dark #achievements-container .text-green-800,
+html.dark #achievements-container .text-green-700,
+html.dark #achievements-container .text-green-600 {
+    color: #dcfce7; /* Açık Yeşil (green-100) */
+}
+html.dark #achievements-container .bg-green-100 {
+    background-color: #15803d; /* Yeşil (green-600) */
+    color: #f0fdf4; /* Açık Yeşil (green-50) */
+}
+html.dark #achievements-container .hover\:bg-rose-100:hover {
+    background-color: #881337; /* Koyu Gül (rose-900) */
+}
+
+
+/* "Kazanılan Rozetler" bölümü */
+
+/* Kazanılmamış (gri) rozet kartı */
+html.dark .badge-card.not-earned {
+    background-color: #262626; /* Koyu Nötr Gri (neutral-800) */
+    border-color: #404040;     /* Daha Koyu Nötr Gri (neutral-700) */
+}
+html.dark .badge-card.not-earned h3,
+html.dark .badge-card.not-earned p {
+    color: #737373; /* Nötr Gri (neutral-500) */
+}
+html.dark .badge-card.not-earned img {
+    opacity: 0.5; /* Resmi daha belirgin yap */
+}
+
+/* Kazanılmış (altın) rozet kartı */
+html.dark .badge-card.earned {
+    background-color: #422006; /* Koyu Amber (amber-950) */
+    border-color: #f59e0b;     /* Amber (amber-500) */
+}
+html.dark .badge-card.earned h3 {
+    color: #fef3c7; /* Açık Amber (amber-100) */
+}
+html.dark .badge-card.earned p {
+    color: #fde68a; /* Daha Açık Amber (amber-200) */
+}
+
+/* style.css dosyasının sonuna ekleyin */
+
+.more-view-link:hover {
+    background-color: #f8fafc; /* Açık modda üzerine gelme rengi */
+}
+
+/* Koyu mod için üzerine gelme efektini düzeltiyoruz */
+html.dark .more-view-link:hover {
+    background-color: #374151; /* Koyu modda üzerine gelme rengi (slate-700) */
+}
+
+/* style.css dosyasının sonuna eklendi */
+
+/* ... mevcut diğer koyu mod stillerinden sonra ... */
+
+/* Bütünsel Performans kutusu için özel renk (Koyu Gri) */
+html.dark .station-header.bg-slate-800   { color: #cbd5e1 !important; } /* slate-300 */
+
+/* Metodoloji Modalındaki yeni adım için koyu mod */
+html.dark #methodology-modal-content .bg-gray-100 {
+    background-color: #374151; /* slate-700 */
+    border-color: #4b5563 !important; /* slate-600 */
+}
+html.dark #methodology-modal-content .text-gray-800 {
+    color: #f3f4f6; /* gray-100 */
+}
+html.dark #methodology-modal-content .text-gray-700 {
+    color: #9ca3af; /* gray-400 */
+}
+
+/* style.css dosyasının sonuna ekleyin */
+.mobile-nav-link.active {
+    color: #111827; /* Koyu tema için de çalışacak renk */
+}
+
+html.dark .mobile-nav-link.active {
+    color: #f9fafb; /* Koyu temada aktif ikon rengi */
+}
+
+/* Profil fotoğrafı için aktif durum stili (çerçeve) */
+#mobile-nav-user-photo.active-nav-photo {
+    border-color: #111827;
+    box-shadow: 0 0 0 2px white;
+}
+html.dark #mobile-nav-user-photo.active-nav-photo {
+    border-color: #f9fafb;
+}
+
+/* Ortadaki + butonu için özel tıklama efekti */
+#mobile-nav-add-btn:active {
+    transform: scale(0.9);
+    transition: transform 0.1s ease;
+}
+/* style.css dosyasının sonuna ekleyin */
+
+/* Varsayılan olarak içi dolu ikonu gizle */
+.mobile-nav-link .icon-solid {
+    display: none;
+}
+
+/* Aktif link olduğunda içi dolu ikonu göster */
+.mobile-nav-link.active .icon-solid {
+    display: block;
+}
+
+/* Aktif link olduğunda dış hatlı ikonu gizle */
+.mobile-nav-link.active .icon-outline {
+    display: none;
+}
+/* style.css dosyasının sonuna ekleyin */
+
+/* Dar ekranlarda Prova Sahnesi kartlarının düzenini ayarla */
+@media (max-width: 420px) {
+    .rehearsal-card-item {
+        flex-direction: column;
+        align-items: stretch; /* Elemanları tam genişliğe yay */
+        gap: 0.75rem; /* Üstteki yazı ile buton arasına boşluk koy */
+    }
+
+    .rehearsal-card-item > div {
+        text-align: center; /* Proje adını ortala */
+    }
+
+    .rehearsal-card-item .btn {
+        width: 100%; /* Butonun tam genişlikte olmasını sağla */
+    }
+}
+
+/* style.css dosyasının sonuna ekleyin */
+
+/* style.css dosyasının sonuna ekleyin */
+
+/* Kaydırma Çubuklarını Gizlemek İçin (Tüm Elemanları Kapsayan Versiyon) */
+
+/* Evrensel seçici (*) ile tüm elemanları hedefler */
+
+/* Firefox için */
+* {
+  scrollbar-width: none;
+}
+
+/* Internet Explorer ve eski Edge için */
+* {
+  -ms-overflow-style: none;
+}
+
+/* Chrome, Safari, Opera gibi WebKit tabanlı tarayıcılar için */
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* Mobil cihazlarda çalışma kartının yüksekliğini düşür */
+@media (max-width: 640px) {
+    #study-card-container {
+        height: 320px; /* 400px'den daha makul bir değere düşürüldü */
+    }
+    /* style.css dosyasındaki @media (max-width: 640px) bloğunun içine ekleyin */
+
+/* ... bir önceki adımdaki #study-incorrect-btn kurallarından sonra ... */
+
+/* Pomodoro zamanlayıcısını mobil için küçült */
+#pomodoro-container {
+    padding: 0.5rem;      /* Ana kutunun iç boşluğunu azalt */
+    gap: 0.5rem;          /* Elemanlar arası boşluğu azalt */
+}
+
+#pomodoro-display {
+    font-size: 1.25rem;   /* Zaman göstergesinin yazı boyutunu küçült */
+    padding: 0.125rem 0.5rem; /* Zaman göstergesinin iç boşluğunu azalt */
+}
+
+#pomodoro-container .btn-icon {
+    width: 1.75rem;       /* Butonların genişliğini azalt */
+    height: 1.75rem;      /* Butonların yüksekliğini azalt */
+}
+}
+
+
+/* --- Mobil İçin Çalışma Butonlarını Küçültme --- */
+
+/* Sadece mobil ekranlarda (genişlik 767px ve altı) bu kurallar geçerli olacak. */
+@media (max-width: 767px) {
+    #study-incorrect-btn,
+    #study-correct-btn {
+        /* Mobil için butonları daha kompakt hale getiriyoruz */
+        padding: 0.6rem 1.2rem; /* İç boşluğu küçült */
+        font-size: 0.875rem;   /* Yazı boyutunu küçült (text-sm) */
+        flex-grow: 0;          /* Butonların yayılmasını engelle, kendi boyutlarında kalsınlar */
+    }
+
+    /* İkonu da yazıya orantılı olarak küçült */
+    #study-correct-btn svg {
+        width: 1rem; /* 16px */
+        height: 1rem;
+    }
+}
+
+
+
+.tag {
+    font-size: 0.75rem; /* 12px */
+    font-weight: 600;
+    background-color: #e0f2fe; /* bg-sky-100 */
+    color: #075985; /* text-sky-800 */
+    padding: 0.125rem 0.5rem;
+    border-radius: 9999px;
+}
+
+html.dark .tag {
+    background-color: rgba(14, 165, 233, 0.2); /* dark:bg-sky-500/20 */
+    color: #7dd3fc; /* dark:text-sky-300 */
+}
+
+.tag-filter-btn {
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.tag-filter-btn.active {
+    background-color: #0ea5e9; /* sky-500 */
+    color: white;
+    box-shadow: 0 0 0 2px white, 0 0 0 4px #0ea5e9;
+}
+
+html.dark .tag-filter-btn.active {
+    box-shadow: 0 0 0 2px #111827, 0 0 0 4px #0ea5e9; /* ring-offset-slate-900 */
+}
+
+/* style.css dosyasının sonuna ekleyin */
+
+/* --- "Geçişleri Çalış" Modu Mobil Düzeltmesi --- */
+
+/* Bu sınıfın, iki kartı ve aradaki oku kapsayan ana konteyner olduğunu varsayıyoruz.
+   Bu sınıf study_logic.js dosyanızda oluşturuluyor olabilir. */
+   .study-view-chaining {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 1rem; /* Elemanlar arası boşluk */
+}
+
+.chaining-card-preview {
+    font-weight: 600;
+    color: #475569; /* text-slate-600 */
+    text-align: center;
+    flex-shrink: 0;
+}
+
+html.dark .chaining-card-preview {
+    color: #9ca3af; /* dark:text-slate-400 */
+}
+
+.chaining-separator .arrow {
+    font-size: 2rem; /* Ok boyutunu büyüt */
+    color: #9ca3af; /* text-slate-400 */
+    transition: transform 0.3s ease;
+}
+
+/* Sadece mobil ekranlarda (genişlik 640px ve altı) geçerli olacak kurallar */
+@media (max-width: 640px) {
+    .study-view-chaining {
+        /* Elemanları dikey olarak alt alta sırala */
+        flex-direction: column;
+        gap: 0.75rem; /* Dikey boşluğu ayarla */
+    }
+
+    /* Kart önizlemelerinin tam genişlik kullanmasını sağla */
+    .chaining-card-preview {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #e2e8f0; /* Kenarlık ekle */
+        border-radius: 0.5rem;   /* Kenarları yuvarlat */
+        background-color: #f8fafc; /* Hafif arkaplan rengi */
+    }
+
+    html.dark .chaining-card-preview {
+        border-color: #374151;
+        background-color: #1f2937;
+    }
+
+    .chaining-separator .arrow {
+        /* Yatay oku (→) 90 derece döndürerek dikey ok (↓) yap */
+        transform: rotate(90deg);
+    }
+    
+    /* Ortadaki "Odak: Geçiş Pratiği" kutusunun metnini ortala */
+    .chaining-separator {
+        text-align: center;
+    }
+}
